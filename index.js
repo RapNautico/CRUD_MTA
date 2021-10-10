@@ -1,13 +1,15 @@
+//Conexion con la base de datos
 const db = firebase.firestore();
-
+//Se obtienen los id
 const taskForm = document.getElementById("task-form");
 const tasksContainer = document.getElementById("tasks-container");
 const inputs = document.querySelectorAll('#task-form input');
-
+//Se agregan las expreciones
 const expressions = {
     nombre: /^[a-zA-ZÀ-ÿ\s]{8,40}$/,
     correo: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
 }
+//Se validan los campos
 const validarFormulario = (e) => {
     switch (e.target.name) {
 		case "nombre":
@@ -22,6 +24,7 @@ const campos = {
 	nombre: false,
 	correo: false,
 }
+//Se mustran los iconos y texto de la validacion
 const validarCampo = (expresion, input, campo) => {
 	if(expresion.test(input.value)){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
@@ -39,6 +42,7 @@ const validarCampo = (expresion, input, campo) => {
 		campos[campo] = false;
 	}
 }
+//Se detecta cuando se oprime una tecla o se da un click
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
@@ -57,6 +61,7 @@ const saveTask = (nombre, correo) =>
     nombre,
     correo,
   });
+  //Se obtienen los elementos
 const getTasks = () => db.collection("tasks").get();
 
 const onGetTasks = (callback) => db.collection("tasks").onSnapshot(callback);
@@ -73,7 +78,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     querySnapshot.forEach((doc) => {
       const task = doc.data();
-
+//Se crea la tabla
       tasksContainer.innerHTML += `<div class="card card-body mt-2 border-primary">
       <table class="table align-middle">
           <thead>
@@ -101,7 +106,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
       </table>
   </div>`;
     });
-
+//Se realiza la funcion del delete
     const btnsDelete = tasksContainer.querySelectorAll(".btn-delete");
     btnsDelete.forEach((btn) =>
       btn.addEventListener("click", async (e) => {
@@ -113,7 +118,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         }
       })
     );
-
+//Se realiza la funcion del edit
     const btnsEdit = tasksContainer.querySelectorAll(".btn-edit");
     btnsEdit.forEach((btn) => {
       btn.addEventListener("click", async (e) => {
@@ -134,7 +139,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     });
   });
 });
-
+//Se realiza validacion cuando se da click en el boton
 taskForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const nombre = taskForm["nombre"];
@@ -154,6 +159,7 @@ try {
 		});
   }
   else{
+    document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
     await updateTask(id, {
       nombre: nombre.value,
       correo: correo.value,

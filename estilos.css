@@ -97,6 +97,7 @@ main {
 
 .formulario__mensaje-activo {
 	display: block;
+	margin-top: 10px;
 }
 
 .formulario__mensaje p {

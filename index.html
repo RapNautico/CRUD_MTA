@@ -28,6 +28,7 @@
             <h1 class="h4">Agregar Usuario</h1>
 
             <form id="task-form">
+              <!-- Se crea input del nombre -->
               <div class="formulario__grupo" id="grupo__nombre">
                 <label for="nombre" class="formulario__label">Nombre</label>
                 <div class="formulario__grupo-input">
@@ -36,7 +37,7 @@
                 </div>
                 <p class="formulario__input-error">El nombre solo puede llevar letras,espacios y acentos.</p>
               </div>
-
+                <!-- Se crea input del correo -->
               <div class="formulario__grupo" id="grupo__correo">
                 <label for="correo" class="formulario__label">Correo Electrónico</label>
                 <div class="formulario__grupo-input">
@@ -45,6 +46,11 @@
                 </div>
                 <p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.</p>
               </div>
+              <!-- Se crea el mensaje de error -->
+              <div class="formulario__mensaje" id="formulario__mensaje">
+                <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+              </div>
+              <!-- Se agrega el boton -->
               <div class="formulario__grupo formulario__grupo-btn-enviar">
                 <button type="submit" class="btn btn-primary formulario__btn">Agregar</button>
                 <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Uusario agragado exitosamente!</p>
